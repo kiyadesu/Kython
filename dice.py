@@ -31,10 +31,18 @@ class Dice(object):
         else:
             raise StopIteration
 
+    def __lt__(self,ins):
+        i1 = Dice.sides.index(self.color)
+        i2 = Dice.sides.index(ins.color)
+        print 'i1：' + str(i1) + ' | i2：' + str(i2)
+        return  i1 < i2
+
 if __name__ == '__main__':
     d1 = Dice.get_dice()
     d2 = Dice.get_dice()
     print Dice.calcSum(d1.color,d2.color)
-    print '——————iter——cut——————'
-    for i in Dice(iterend=6):
-        print i
+    # print '——————iter——cut——————'
+    # for i in Dice(iterend=6):
+    #     print i
+    # print '——————iter——cut——————'
+    print d1 < d2
