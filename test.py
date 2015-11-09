@@ -1,11 +1,11 @@
 #coding:utf-8
-def log(f):
-    def wrapper(*argv,**kw):
-        print 'start'
-        a = f(*argv,**kw)
-        print 'end'
-        return a
-    return wrapper
+# def log(f):
+#     def wrapper(*argv,**kw):
+#         print 'start'
+#         a = f(*argv,**kw)
+#         print 'end'
+#         return a
+#     return wrapper
 
 
 class A(object):
@@ -14,11 +14,19 @@ class A(object):
 
     #@log
     def getname(self):
-        print self._name
-        return self._name
+        print(self._name)
+        #return self._name
 
-    name = log(log(getname))
+    #name = log(log(getname))
 
-a = A()
+class B(A):
+
+    def getname(self):
+        print('child-get-name :')
+        super().getname()
+
+#a = A()
 #print a.getname()
-print a.name()
+#a.name()
+b = B()
+b.getname()
