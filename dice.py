@@ -37,6 +37,9 @@ class Dice(object):
         print 'i1：' + str(i1) + ' | i2：' + str(i2)
         return  i1 < i2
 
+    def __add__(self,ins):
+        return Dice.calcSum(self.color, ins.color)
+
 if __name__ == '__main__':
     d1 = Dice.get_dice()
     d2 = Dice.get_dice()
@@ -46,3 +49,4 @@ if __name__ == '__main__':
     #     print i
     # print '——————iter——cut——————'
     print d1 < d2
+    print 'the add :' + str(d1+d2)
