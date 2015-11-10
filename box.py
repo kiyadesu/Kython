@@ -27,6 +27,10 @@ class Box(object):
         self.__openFlag = False
         Box.instance_num += 1
 
+    def info(self):
+        print 'length:%d width:%d height:%d >> ' %(self.length,self.width,self.height),
+        print 'volumn: %d' % self.getVolumn()
+
     def getVolumn(self):
         self.__volumn = self.length * self.width * self.height
         return self.__volumn
@@ -62,6 +66,26 @@ class Box(object):
             print('box close!')
             self.__openFlag = False
 
+class BoxLevel2(Box):
+
+     def __add__(self, ab):
+         return BoxLevel2(self.length+ab.length, self.width+ab.width, self.height+ab.height)
+
+    #  def info(self):
+    #      print 'length:%d width:%d height:%d >> ' %(self.length,self.width,self.height),
+    #      print 'volumn: %d' % self.getVolumn()
+
+def addBox(b1,b2):
+    return b1+b2
+
+if __name__ == '__main__':
+    b1 = BoxLevel2(1,1,1)
+    b2 = BoxLevel2(2,2,2)
+    b1.info()
+    b2.info()
+    addBox(b1,b2).info()
+
+
 # print Box.instance_num
 # b = Box(1,1,1)
 # print b.instance_num
@@ -73,14 +97,14 @@ class Box(object):
 # print b.instance_num
 # Box.instance_num = 4
 # print Box.instance_num
-b = Box(1,1,1)
-b.open()
-b.open()
-b.close()
-b.close()
-#print b.color
-b.color = 'blue'
-#print b.color
-b.sideNum = 7
-print(b.sideNum)
-print('as __call__:' + str(b()))
+# b = Box(1,1,1)
+# b.open()
+# b.open()
+# b.close()
+# b.close()
+# #print b.color
+# b.color = 'blue'
+# #print b.color
+# b.sideNum = 7
+# print(b.sideNum)
+# print('as __call__:' + str(b()))
