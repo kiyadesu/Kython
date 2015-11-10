@@ -75,7 +75,7 @@ class BoxLevel2(Box):
     #      print 'length:%d width:%d height:%d >> ' %(self.length,self.width,self.height),
     #      print 'volumn: %d' % self.getVolumn()
 
-def addBox(b1,b2):
+def AddIns(b1,b2):
     return b1+b2
 
 if __name__ == '__main__':
@@ -83,7 +83,7 @@ if __name__ == '__main__':
     b2 = BoxLevel2(2,2,2)
     b1.info()
     b2.info()
-    addBox(b1,b2).info()
+    AddIns(b1,b2).info()
 
 
 # print Box.instance_num
