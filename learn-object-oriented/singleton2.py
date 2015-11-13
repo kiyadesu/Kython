@@ -1,9 +1,16 @@
+#coding:utf-8
+
+# import pdb
+#
+# pdb.set_trace()
+
 class SingleClass(object):
 
      def __new__(cls, *args, **kw):
-         if not hasattr(cls, '__ins'):
-             cls.__ins = super(SingleClass, cls).__new__(cls, *args, **kw)
-         return cls.__ins
+         if not hasattr(cls, '_ns'):   # hasattr 不是类的方法，所以总是访问不到 __ns 成员
+             cls._ns = super(SingleClass, cls).__new__(cls, *args, **kw)
+             print cls._SingleClass__ns
+         return cls._ns
 
 if __name__ == '__main__':
     s1 = SingleClass()
