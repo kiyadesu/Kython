@@ -12,7 +12,6 @@ def decorate(cls):
 
     return WrappedClass
 
-
 @decorate
 class doge(object):
 

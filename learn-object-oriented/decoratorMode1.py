@@ -6,7 +6,7 @@ class Water(object):
     def info(self):
         print self.name
 
-class Decorator(object):    # what use???? no necessary
+class Decorator(object):    # what use???? no necessary(可能是为了避免子类们没有实现Info方法从而调用出错)
 
     def info(self):
     #    print "i'm Decorator"
