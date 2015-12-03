@@ -1,6 +1,4 @@
 # Kython
 kiya with python
 
-##learn python
-
-hello
+here is something about my learning python and some insteresting functions!
