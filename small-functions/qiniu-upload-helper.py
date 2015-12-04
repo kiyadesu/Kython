@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 #coding:utf-8
 
-#must install qiniu(use pip) before using.
+# help you upload an image in clipboard to qiniu cloud storage, 
+# so you don't need to download a picture and click the upload button before uploading it.
+# must install qiniu(use pip) before using.
 
 import gtk
 
