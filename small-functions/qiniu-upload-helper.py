@@ -16,7 +16,7 @@ if image is None:
     print 'no image in clipboard!' 
 else:
     from qiniu import Auth, put_data
-    # 'key_qiniu' is another file storing my keys,qiniu_domain and bucket_name, touch one by yourself
+    # 'key_qiniu' is another file storing my keys,qiniu_domain and bucket_name, touch one by yourself, remember add 'http://' before qiniu_domain
     from key_qiniu import access_key,secret_key,bucket_name,qiniu_domain
     q = Auth(access_key,secret_key)
 
