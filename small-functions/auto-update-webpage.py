@@ -16,6 +16,7 @@ def updateKX():
             print 'exit'
             t.cancel()
 
-i = 0
-t = threading.Timer(300.0, updateKX)
-t.start()
+if __name__ == '__main__':        
+    i = 0
+    t = threading.Timer(300.0, updateKX)
+    t.start()
