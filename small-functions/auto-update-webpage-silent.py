@@ -19,7 +19,7 @@ def login():
     cookie = cookielib.MozillaCookieJar(cookie_filename)
     cookie_handler = urllib2.HTTPCookieProcessor(cookie)
 
-     post_data = urllib.urlencode({
+    post_data = urllib.urlencode({
         'vb_login_username' : pass_kx.vb_login_username,
         'vb_login_password' : pass_kx.vb_login_password,
         's' : pass_kx.s,
@@ -31,7 +31,7 @@ def login():
 
     opener = urllib2.build_opener(cookie_handler)
 
-    request = urllib2.Request(url = log_url,data=encoded_data)
+    request = urllib2.Request(url = log_url,data=post_data)
     response = opener.open(request)
     cookie.save(ignore_discard=True,ignore_expires=True)
 
@@ -43,7 +43,9 @@ def updateKX():
     open a page every 5min
     '''
     global opener
-    print opener.open('http://bbs.pediy.com/member.php?u=663974').read()
+    ret = opener.open('http://bbs.pediy.com/member.php?u=663974').read()
+    print 'kiyaa index:',
+    print ret.find('kiyaa')
 
     global t        #Notice: use global variable!
     t = threading.Timer(300.0, updateKX)
@@ -64,6 +66,10 @@ if __name__ == '__main__':
     cookie = cookielib.MozillaCookieJar()
     cookie.load('cookie.txt',ignore_discard=True,ignore_expires=True)
     opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cookie))
+    ret = opener.open('http://bbs.pediy.com/member.php?u=663974').read()
+    print 'kiyaa index:',
+    print ret.find('kiyaa')
 
+    i = 0
     t = threading.Timer(300.0, updateKX)
     t.start()
