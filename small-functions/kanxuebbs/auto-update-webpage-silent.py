@@ -43,9 +43,8 @@ def updateKX():
     open a page every 5min
     '''
     global opener
-    ret = opener.open('http://bbs.pediy.com/member.php?u=663974').read()
-    print 'kiyaa index:',
-    print ret.find('kiyaa')
+    ret = opener.open('http://bbs.pediy.com').read()
+    print ret.find('kiya')
 
     global t        #Notice: use global variable!
     t = threading.Timer(300.0, updateKX)
@@ -66,9 +65,6 @@ if __name__ == '__main__':
     cookie = cookielib.MozillaCookieJar()
     cookie.load('cookie.txt',ignore_discard=True,ignore_expires=True)
     opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cookie))
-    ret = opener.open('http://bbs.pediy.com/member.php?u=663974').read()
-    print 'kiyaa index:',
-    print ret.find('kiyaa')
 
     i = 0
     t = threading.Timer(300.0, updateKX)
