@@ -1,55 +1,47 @@
 #!/usr/bin/env python
 #coding:utf-8
-
 import urllib
 import urllib2
 import cookielib
-from login_helper import getvalue
+from bs4 import BeautifulSoup
+#a file stord your username & password
+from pass_csdn import username,password
 
 cookie = cookielib.MozillaCookieJar('cookie.txt')
 cookie_handler = urllib2.HTTPCookieProcessor(cookie)
 opener = urllib2.build_opener(cookie_handler)
 
-
 def login():
-
     # prepare for login
     response = opener.open('https://passport.csdn.net/account/login')
-    data = response.read()
-    #lt,execution
-    lt,execution = getvalue(data)
-    #cookie jsessionid
-    for c in cookie:
-        print c.name,c.value
-        if c.name == 'JSESSIONID':
-            jsessionid = c.value
-            break
-    cookie.save(ignore_discard=True,ignore_expires=True)
+    lt = ""
+    execution = ""
+    bs = BeautifulSoup(response.read(),"lxml")
+    for input in bs.form.find_all('input'):
+        if input.get('name') == 'lt':
+            lt = input.get('value')
+        if input.get('name') == 'execution':
+            execution = input.get('value')
 
 #---------------------------------------------------
 
     post_data = urllib.urlencode({
-        'username' : '1143123897@qq.com',
-        'password' : 'han15903067415',
+        'username' : username,
+        'password' : password,
         'lt' : lt,
         'execution' : execution,
         '_eventId' : 'submit'
     })
 
-    login_url_with_jsession = 'https://passport.csdn.net/account/login;jsessionid=' + jsessionid
+    headers_data = {
+        'User-Agent' :	'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:42.0) Gecko/20100101 Firefox/42.0'
+    }
+
+    login_url_with_jsession = 'https://passport.csdn.net/account/login'
     request = urllib2.Request(url = login_url_with_jsession,data=post_data)
     try:
         response = opener.open(request)
-    except urllib2.HTTPError as e:
-        print e.read()
-
-    print response.info()
-
-    try:
-#        ret = opener.open('http://write.blog.csdn.net/article/UploadImgMarkdown?parenthost=write.blog.csdn.net')
-        ret = opener.open('http://blog.csdn.net/attach_114')
-        print ret.read()
-        print ret.geturl()
+        cookie.save()
     except urllib2.HTTPError as e:
         print e.read()
 
