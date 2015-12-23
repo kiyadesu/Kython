@@ -1,49 +1,22 @@
 #!/usr/bin/env python
 #coding:utf-8
+import sys
+reload(sys)
+sys.setdefaultencoding("utf-8")
+
 import urllib
-import urllib2
-import cookielib
-from bs4 import BeautifulSoup
-#a file stord your username & password
-from pass_csdn import username,password
+import markdown
 
-cookie = cookielib.MozillaCookieJar('cookie.txt')
-cookie_handler = urllib2.HTTPCookieProcessor(cookie)
-opener = urllib2.build_opener(cookie_handler)
-
-def login():
-    # prepare for login
-    response = opener.open('https://passport.csdn.net/account/login')
-    lt = ""
-    execution = ""
-    bs = BeautifulSoup(response.read(),"lxml")
-    for input in bs.form.find_all('input'):
-        if input.get('name') == 'lt':
-            lt = input.get('value')
-        if input.get('name') == 'execution':
-            execution = input.get('value')
-
-#---------------------------------------------------
-
-    post_data = urllib.urlencode({
-        'username' : username,
-        'password' : password,
-        'lt' : lt,
-        'execution' : execution,
-        '_eventId' : 'submit'
-    })
-
-    headers_data = {
-        'User-Agent' :	'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:42.0) Gecko/20100101 Firefox/42.0'
-    }
-
-    login_url_with_jsession = 'https://passport.csdn.net/account/login'
-    request = urllib2.Request(url = login_url_with_jsession,data=post_data)
-    try:
-        response = opener.open(request)
-        cookie.save()
-    except urllib2.HTTPError as e:
-        print e.read()
+from CSDN import CSDN
+from pass_csdn import username,password #a file stored your username & password
 
 if __name__ == '__main__':
-    login()
+    if len(sys.argv) != 2:
+        print 'usage: %s <article file path>' % sys.argv[0][sys.argv[0].rfind('/')+1:]
+        print " before execute, touch 'pass_csdn.py' in the same folder as me and put username& password in it"
+        exit(0)
+    print '————CSDN-START————'
+    csdn = CSDN()
+    csdn.login(username,password)
+    csdn.publish_article(sys.argv[1])
+    print '————CSDN-END————'
