@@ -46,4 +46,5 @@ def traverse(rootDir):
                 print 'lines'
 
 if __name__ == '__main__':
-    traverse('/home/hanks/kiya/blog/source/_posts')
+    # traverse('/home/hanks/kiya/blog/source/_posts')
+    add_tab('/home/hanks/kiya/blog/source/_posts/ida-dynamic-debug-so.md')

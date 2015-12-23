@@ -7,6 +7,7 @@ import urllib
 import urllib2
 import cookielib
 from Tools import format_file,parse_html
+import os.path
 
 class CSDN:
 
@@ -31,6 +32,11 @@ class CSDN:
 
 
     def login(self,username,password):
+        if os.path.exists('cookie.txt'):
+            print '| loading cookie'
+            self.cookie.load()
+            return True
+
         print '| start loging in'
         # prepare for login
         lt, execution = parse_html(self.RequestInOne(self.login_url).read())
@@ -43,13 +49,17 @@ class CSDN:
             '_eventId' : 'submit'
         })
 
-        self.RequestInOne(req_url=self.login_url,post_data=post_data)
+        response = self.RequestInOne(req_url=self.login_url,post_data=post_data)
+        if response.read().find('该参数可以理解成'):
+            print '| login failed'
+            return False
 
+        self.cookie.save()
+        return True
 
     def publish_article(self,article_path):
         title,content,markdowncontent = format_file(article_path)
         print '| start publishing:' + title
-        print markdowncontent
         post_data = urllib.urlencode({
             'title' : title,
             'markdowncontent' : content,
@@ -65,4 +75,4 @@ class CSDN:
             'articleedittype' :	'1'
         })
 
-        # self.RequestInOne(req_url=self.publish_article_url,post_data=post_data)
+        self.RequestInOne(req_url=self.publish_article_url,post_data=post_data)

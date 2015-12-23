@@ -17,6 +17,6 @@ if __name__ == '__main__':
         exit(0)
     print '————CSDN-START————'
     csdn = CSDN()
-    csdn.login(username,password)
-    csdn.publish_article(sys.argv[1])
+    if(csdn.login(username,password)):
+        csdn.publish_article(sys.argv[1])        
     print '————CSDN-END————'
