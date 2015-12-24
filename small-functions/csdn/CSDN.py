@@ -32,15 +32,10 @@ class CSDN:
 
 
     def login(self,username,password):
-        if os.path.exists('cookie.txt'):
-            print '| loading cookie'
-            self.cookie.load()
-            return True
 
         print '| start loging in'
         # prepare for login
         lt, execution = parse_html(self.RequestInOne(self.login_url).read())
-
         post_data = urllib.urlencode({
             'username' : username,
             'password' : password,
@@ -48,13 +43,11 @@ class CSDN:
             'execution' : execution,
             '_eventId' : 'submit'
         })
-
         response = self.RequestInOne(req_url=self.login_url,post_data=post_data)
-        if response.read().find('该参数可以理解成'):
+        if response.read().find('该参数可以理解成') != -1:
             print '| login failed'
             return False
 
-        self.cookie.save()
         return True
 
     def publish_article(self,article_path):
@@ -75,4 +68,5 @@ class CSDN:
             'articleedittype' :	'1'
         })
 
-        self.RequestInOne(req_url=self.publish_article_url,post_data=post_data)
+        response = self.RequestInOne(req_url=self.publish_article_url,post_data=post_data)
+        print '| return :' + response.read()[:-2]

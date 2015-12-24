@@ -12,7 +12,7 @@ def add_tab(path):
         while tmp != '':
             tmp = f.readline()
 
-            if tmp == '```\n':
+            if tmp.find('```') != -1:
                 if flag:
                     flag = False
                 else:
@@ -40,11 +40,11 @@ def traverse(rootDir):
             print os.path.join(root, d)
         for f in files:
             path = os.path.join(root, f)
-            if os.path.getmtime(path) > 1449214271 or os.path.getmtime(path) < 1449212309:
-                print '>>' + path + '\n  modified ',
-                print add_tab(path),
-                print 'lines'
+            # if os.path.getmtime(path) > 1449214271 or os.path.getmtime(path) < 1449212309:
+            print '>>' + path + '\n  modified ',
+            print add_tab(path),
+            print 'lines'
 
 if __name__ == '__main__':
-    # traverse('/home/hanks/kiya/blog/source/_posts')
-    add_tab('/home/hanks/kiya/blog/source/_posts/ida-dynamic-debug-so.md')
+    traverse('/home/hanks/kiya/blog/source/_posts')
+    # add_tab('/home/hanks/kiya/blog/source/_posts/hello-world.md')
