@@ -29,7 +29,7 @@ else:
     ret, info = put_data(token,key,data)
   #  print ret
     assert ret['key'] == key
-    image_url = '![](' + qiniu_domain + '/' + key + ')'
+    image_url = '![](' + qiniu_domain + '/' + key + '-style1)'
     clipboard.set_text(image_url, len(image_url))
     clipboard.store()
     print 'success!'
