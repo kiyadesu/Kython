@@ -6,6 +6,10 @@ here is something about my learning python and some insteresting functions!
 
 ## small functions
 
+### color多彩手账
+
+下载手账里卡哇伊的贴纸花边图片
+
 ### 人人词典
 
 人人词典将单词和美剧结合起来，很不错 :p
